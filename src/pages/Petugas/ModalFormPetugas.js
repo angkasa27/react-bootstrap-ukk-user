@@ -1,25 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import $ from 'jquery';
 import Modal from '../../component/fragment/Modal';
 import InputText from '../../component/fragment/Input/InputText';
 
-export const openModal = (id) => {
-  $(`#${id}`).modal('show');
-};
-
-export const closeModal = (id) => {
-  $(`#${id}`).modal('hide');
-};
-
-export function ModalDelete() {
-  return (
-    <Modal header="Hapus Petugas" id="deleteAdmin" confirmText="Hapus">
-      Apakah anda yakin ingin menghapus akun ini?
-    </Modal>
-  );
-}
-
-export function ModalEdit({ data, handleSubmit }) {
+export default function ModalEdit({ data, handleSubmit }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');

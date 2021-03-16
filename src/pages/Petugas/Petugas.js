@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../component/fragment/Navbar';
 import Table from '../../component/fragment/Table';
 import Moment from 'moment';
-import { openModal, ModalDelete, ModalEdit, closeModal } from './ModalPetugas';
+import ModalFormPetugas from './ModalFormPetugas';
+import { getRole } from '../../utils/storage';
+import { useHistory, useLocation } from 'react-router-dom';
+import { getAll, addNew, updateOperator, deleteOne } from './action';
+import queryString from 'querystring';
+import Pagination from '../../component/fragment/Pagination';
+import Modal, { openModal, closeModal } from '../../component/fragment/Modal';
 
 export default function Petugas() {
+  const history = useHistory();
+  const location = useLocation();
+  const { page = 1, id, add } = queryString.parse(
+    location.search.replace('?', '')
+  );
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState({});
+  const [detail, setDetail] = useState({});
+
+  //Mencegah Petugas masuk kenhalaman petugas
+  if (getRole() !== 'admin') history.push('/');
+
   const renderDate = (date) => {
     return Moment(date).locale('id').format('LL');
   };
 
-  const renderAction = () => {
+  const renderAction = (adminId) => {
     return (
       <div className="d-flex">
-        <button
-          onClick={() => openModal('editAdmin')}
-          className="btn btn-success text-white btn-sm d-flex justify-content-center align-items-center p-2"
+        <span
+          onClick={() => {
+            history.push({
+              search: queryString.stringify({
+                page,
+                id: adminId,
+              }),
+            });
+            openModal('editAdmin');
+          }}
+          className="btn btn-info text-white btn-sm d-flex justify-content-center align-items-center p-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,22 +56,33 @@ export default function Petugas() {
               d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
             />
           </svg>
-        </button>
-        <button
-          onClick={() => openModal('deleteAdmin')}
-          className="ml-2 btn btn-danger text-white btn-sm d-flex justify-content-center align-items-center p-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-trash-fill"
-            viewBox="0 0 16 16"
+        </span>
+        {getRole() === 'admin' && (
+          // history.push buat nambah query
+          <span
+            onClick={() => {
+              history.push({
+                search: queryString.stringify({
+                  page,
+                  id: adminId,
+                }),
+              });
+              openModal('hapusAdmin');
+            }}
+            className="ml-1 btn btn-danger text-white btn-sm d-flex justify-content-center align-items-center p-2"
           >
-            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-trash-fill"
+              viewBox="0 0 16 16"
+            >
+              <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+            </svg>
+          </span>
+        )}
       </div>
     );
   };
@@ -53,63 +90,43 @@ export default function Petugas() {
   const column = [
     {
       heading: 'Nama',
-      value: (v) => v.name,
+      value: (v) => v.nama_petugas,
     },
     {
       heading: 'Username',
-      value: (v) => v.username,
+      value: (v) => v.Username,
     },
     {
       heading: 'tgl bergabung',
-      value: (v) => renderDate(v.createAt),
+      value: (v) => renderDate(v.telp),
     },
     {
       heading: '',
-      value: () => renderAction(),
+      value: (v) => renderAction(v.order),
     },
   ];
 
-  const data = [
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-    {
-      name: 'Bambang Pamungkas',
-      username: 'bambang1212',
-      createAt: '12/12/2020',
-    },
-  ];
+  useEffect(() => {
+    getAll(page, setData);
+  }, [page, loading]);
 
-  const handleSubmit = (data) => {
-    console.log(data);
-    closeModal('editAdmin');
+  useEffect(() => {
+    if (id) {
+      const v = data.data;
+      if (v) setDetail(v[id]);
+    }
+  }, [id, loading]);
+
+  const handleDelete = () => {
+    deleteOne(detail.id_petugas, setLoading);
+    closeModal();
+  };
+
+  const handleSubmit = (v) => {
+    if (add) addNew(v, setLoading);
+    else if (detail.id_petugas)
+      updateOperator(detail.id_petugas, v, setLoading);
+    closeModal();
   };
 
   return (
@@ -125,12 +142,22 @@ export default function Petugas() {
               <h4 className="h4">Total :</h4>
               <button className="btn btn-primary">Tambah Petugas</button>
             </div>
-            <Table column={column} data={data} />
+            <Table column={column} data={data.data} />
+            <div className="row d-flex flex-row-reverse mt-4">
+              <Pagination location={location.pathname} meta={data.meta} />
+            </div>
           </div>
         </div>
       </div>
-      {ModalDelete()}
-      {ModalEdit({ handleSubmit })}
+      <Modal
+        header="Hapus Petugas"
+        id="hapusAdmin"
+        confirmText="Hapus"
+        onClick={() => handleDelete()}
+      >
+        Apakah anda yakin ingin menghapus akun ini?
+      </Modal>
+      <ModalFormPetugas handleSubmit={(v) => handleSubmit(v)} />
     </div>
   );
 }
