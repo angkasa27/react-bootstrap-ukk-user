@@ -2,29 +2,22 @@ import React, { useState, useEffect } from 'react';
 import Modal from '../../component/fragment/Modal';
 import InputText from '../../component/fragment/Input/InputText';
 
-export function ModalDelete() {
-  return (
-    <Modal header="Hapus pengguna" id="deleteUser" confirmText="Hapus">
-      Apakah anda yakin ingin menghapus akun pengguna ini?
-    </Modal>
-  );
-}
-
-export function ModalEdit({ data, handleSubmit }) {
+export default function ModalEdit({ data, handleSubmit }) {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
 
   useEffect(() => {
     if (data) {
-      setName(data.name);
+      setName(data.nama);
       setUsername(data.username);
-      setPhone(data.phone);
+      setPhone(data.telp);
     }
   }, [data]);
 
   const onSubmit = () => {
     handleSubmit({
+      nik: data.nik,
       name,
       username,
       phone,
@@ -62,7 +55,7 @@ export function ModalEdit({ data, handleSubmit }) {
           onChange={(e) => setPhone(e.target.value)}
           className="col-md-12"
         />
-      </form> 
+      </form>
     </Modal>
   );
 }

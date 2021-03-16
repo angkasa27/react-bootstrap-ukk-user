@@ -13,20 +13,31 @@ export default function DataTable(props) {
         </tr>
       </thead>
       <tbody>
-        {data.map((item, idx) => (
-          <TableRow
-            column={column}
-            idx={idx}
-            item={item}
-            key={idx}
-            meta={meta}
-            size={size}
-          />
-        ))}
+        {data.map((item, idx) => {
+          item.order = idx;
+          return (
+            <TableRow
+              column={column}
+              idx={idx}
+              item={item}
+              key={idx}
+              meta={meta}
+              size={size}
+            />
+          );
+        })}
       </tbody>
     </table>
   );
 }
+
+DataTable.defaultProps = {
+  className: '',
+  column: [],
+  data: [],
+  meta: {},
+  size: 10,
+};
 
 export function TableHeader({ item }) {
   return <th className="text-capitalize">{item.heading}</th>;
@@ -47,3 +58,10 @@ export function TableRow({ column, item }) {
     </tr>
   );
 }
+
+TableRow.defaultProps = {
+  column: [],
+  idx: 0,
+  item: {},
+  size: 10,
+};

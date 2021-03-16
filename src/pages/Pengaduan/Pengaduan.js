@@ -402,16 +402,20 @@ export default function Pengaduan() {
       </Modal>
 
       {/* Manggil modal buat konfirmasi hapus laporan */}
-      <Modal
-        header="Hapus Laporan"
-        id="hapusLaporan"
-        confirmText="Hapus"
-        onClick={() => handleDelete()}
-      >
-        <p className="text-center">
-          {'Apakah anda ingin menghapus laporann ini? (Tidak dapat dibatalkan)'}
-        </p>
-      </Modal>
+      {getRole() === 'admin' && (
+        <Modal
+          header="Hapus Laporan"
+          id="hapusLaporan"
+          confirmText="Hapus"
+          onClick={() => handleDelete()}
+        >
+          <p className="text-center">
+            {
+              'Apakah anda ingin menghapus laporann ini? (Tidak dapat dibatalkan)'
+            }
+          </p>
+        </Modal>
+      )}
 
       {/* Manggil modal buat nambah tanggapan baru */}
       <ModalAddTanggapan handleAction={(v) => submitTanggapan(v)} />
