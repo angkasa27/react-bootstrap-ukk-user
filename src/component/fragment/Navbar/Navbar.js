@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { getRole, clearStorage } from '../../../utils/storage';
+import { clearStorage } from '../../../utils/storage';
 import { useHistory } from 'react-router-dom';
 import Modal, { openModal, closeModal } from '../Modal';
 
 export default function Navbar() {
   const history = useHistory();
-  const role = getRole();
 
   const handleLogout = () => {
     closeModal('logout');
@@ -41,20 +40,13 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/pengguna">
-              Pengguna
+            <NavLink className="nav-link" to="/profile">
+              Profile
             </NavLink>
           </li>
 
           {/* Cek apakah rolenya admin
           jika admin maka menu petugas muncul */}
-          {role === 'admin' && (
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/petugas">
-                Petugas
-              </NavLink>
-            </li>
-          )}
           <li className="nav-item">
             <span
               className="nav-link"

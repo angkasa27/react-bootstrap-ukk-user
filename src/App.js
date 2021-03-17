@@ -8,10 +8,10 @@ import { useLocation, useHistory } from 'react-router-dom';
 
 // Import semua halaman yang mau dipake biar bisa dipanggil
 import Login from './pages/Login';
+import Register from './pages/Register';
 import Home from './pages/Home';
 import Pengaduan from './pages/Pengaduan';
-import Pengguna from './pages/Pengguna';
-import Petugas from './pages/Petugas';
+// import Profile from './pages/Profile';
 
 //Import function getToken buat nge cek tokennya
 import { getToken } from './utils/storage';
@@ -21,7 +21,7 @@ export default function App() {
   const history = useHistory();
 
   // Berisi Route yang tidak memerlukan token
-  const noAuthRoutes = ['/login', '/Login'];
+  const noAuthRoutes = ['/login', '/Login', '/register', '/Register'];
   // Cek jika lokasi sekarang sama dengan lokasi yang ada di noAuthRoutes
   const noAuth = noAuthRoutes.some((r) => location.pathname.match(r));
 
@@ -43,12 +43,12 @@ export default function App() {
     <div className="">
       {/* Untuk membuat branch nya atau jalur pipa nya */}
       <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
         <Route exact path="/" component={Home} />
         <Route path="/statistik" component={Home} />
-        <Route path="/login" component={Login} />
         <Route path="/pengaduan" component={Pengaduan} />
-        <Route path="/pengguna" component={Pengguna} />
-        <Route path="/petugas" component={Petugas} />
+        {/*   <Route path="/profile" component={Profile} /> */}
       </Switch>
     </div>
   );

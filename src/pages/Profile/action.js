@@ -1,20 +1,15 @@
-import {
-  getAllOperator,
-  addOperator,
-  editOperator,
-  deleteOperator,
-} from '../../utils/fetch';
+import { getProfile, editProfile, editPassword } from '../../utils/fetch';
 
-export function getAll(page, setResponse) {
-  getAllOperator(page)
+export function getUserProfile(setResponse) {
+  getProfile()
     .then((res) => {
       if (res.success) {
         return setResponse({
           success: true,
           message: 'SUKSES',
           data: res.data,
-          meta: res.meta,
         });
+        // location.href = `/`;
       } else {
         console.log(res.message);
         return setResponse({ success: false, message: res.message });
@@ -26,12 +21,14 @@ export function getAll(page, setResponse) {
         success: false,
         message: 'Silahkan Hubungi Developer',
       });
+      // dispatch(loginFailedAction(message));
+      // dispatch(loadingAction(false));
     });
 }
 
-export function addNew(data, setLoading) {
+export function updateProfile(data, setLoading) {
   setLoading(true);
-  addOperator(data)
+  editProfile(data)
     .then((res) => {
       if (res.success) {
         setLoading(false);
@@ -46,26 +43,9 @@ export function addNew(data, setLoading) {
     });
 }
 
-export function updateOperator(id, data, setLoading) {
+export function updatePassword(data, setLoading) {
   setLoading(true);
-  editOperator(id, data)
-    .then((res) => {
-      if (res.success) {
-        setLoading(false);
-      } else {
-        console.log(res.message);
-        setLoading(false);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      setLoading(false);
-    });
-}
-
-export function deleteOne(id, setLoading) {
-  setLoading(true);
-  deleteOperator(id)
+  editPassword(data)
     .then((res) => {
       if (res.success) {
         setLoading(false);

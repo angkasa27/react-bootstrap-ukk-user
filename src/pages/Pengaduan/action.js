@@ -2,9 +2,7 @@ import {
   getAllPengaduan,
   getDetailPengaduan,
   putStatusPengaduan,
-  getDokumenPengaduan,
-  addTanggapanPengaduan,
-  deletePengaduan,
+  addPengaduan,
 } from '../../utils/fetch';
 
 export function getAll(page, setResponse) {
@@ -24,7 +22,6 @@ export function getAll(page, setResponse) {
     })
     .catch((err) => {
       console.log(err);
-      console.log('tes');
       return setResponse({
         success: false,
         message: 'Silahkan Hubungi Developer',
@@ -72,55 +69,22 @@ export function updateStatus(id, data, setLoading) {
     });
 }
 
-export function getDokumen(setResponse) {
-  getDokumenPengaduan()
-    .then((res) => {
-      if (res) {
-        return setResponse(res);
-      } else {
-        console.log(res.message);
-        return setResponse({ success: false, message: res.message });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      return setResponse({
-        success: false,
-        message: 'Silahkan Hubungi Developer',
-      });
-    });
-}
-
-export function sendTanggapan(id, data, setLoading) {
+export function submitPengaduan(data, setLoading, handleResponse) {
   setLoading(true);
-  addTanggapanPengaduan(id, data)
+  addPengaduan(data)
     .then((res) => {
       if (res.success) {
         setLoading(false);
+        handleResponse(true);
       } else {
         console.log(res.message);
+        handleResponse(false);
         setLoading(false);
       }
     })
     .catch((err) => {
       console.log(err);
-      setLoading(false);
-    });
-}
-
-export function deleteOne(id, setLoading) {
-  setLoading(true);
-  deletePengaduan(id)
-    .then((res) => {
-      if (res.success) {
-        setLoading(false);
-      } else {
-        console.log(res.message);
-        setLoading(false);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
+      handleResponse(false);
       setLoading(false);
     });
 }
