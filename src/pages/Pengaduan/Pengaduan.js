@@ -113,7 +113,7 @@ export default function Pengaduan() {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-check-circle-fill"
+              className="bi bi-check-circle-fill"
               viewBox="0 0 16 16"
             >
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
@@ -129,7 +129,7 @@ export default function Pengaduan() {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-check-circle-fill"
+              className="bi bi-check-circle-fill"
               viewBox="0 0 16 16"
             >
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
@@ -156,7 +156,7 @@ export default function Pengaduan() {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-file-earmark-x"
+              className="bi bi-file-earmark-x"
               viewBox="0 0 16 16"
             >
               <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />
@@ -173,7 +173,7 @@ export default function Pengaduan() {
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-file-earmark-x"
+              className="bi bi-file-earmark-x"
               viewBox="0 0 16 16"
             >
               <path d="M6.854 7.146a.5.5 0 1 0-.708.708L7.293 9l-1.147 1.146a.5.5 0 0 0 .708.708L8 9.707l1.146 1.147a.5.5 0 0 0 .708-.708L8.707 9l1.147-1.146a.5.5 0 0 0-.708-.708L8 8.293 6.854 7.146z" />

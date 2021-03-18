@@ -11,7 +11,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Home from './pages/Home';
 import Pengaduan from './pages/Pengaduan';
-// import Profile from './pages/Profile';
+import Profile from './pages/Profile';
 
 //Import function getToken buat nge cek tokennya
 import { getToken } from './utils/storage';
@@ -48,7 +48,7 @@ export default function App() {
         <Route exact path="/" component={Home} />
         <Route path="/statistik" component={Home} />
         <Route path="/pengaduan" component={Pengaduan} />
-        {/*   <Route path="/profile" component={Profile} /> */}
+        <Route path="/profile" component={Profile} />
       </Switch>
     </div>
   );

@@ -56,7 +56,7 @@ export function AddCard({ name, bg }) {
   return (
     <div className="col-lg 4 col-md-6 col-sm-12 mt-2">
       <div onClick={() => history.push('/pengaduan?add=true')} className="card">
-        <div className={'card-body bg-' + bg}>
+        <div className={'card-body  shadow rounded-3 border-0 bg-' + bg}>
           <h4 className="text-dark">
             <strong>{name}</strong>
           </h4>
