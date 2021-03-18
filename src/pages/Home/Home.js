@@ -40,11 +40,7 @@ export default function Home() {
             bg="info"
             value={statistic.data && statistic.data.responded}
           />
-          <CountCard
-            name="Selesai"
-            bg="success"
-            value={statistic.data.responded}
-          />
+          <CountCard name="Selesai" bg="success" value={statistic.data.done} />
         </div>
       </div>
     </div>
@@ -57,7 +53,7 @@ export function AddCard({ name, bg }) {
     <div className="col-lg 4 col-md-6 col-sm-12 mt-2">
       <div onClick={() => history.push('/pengaduan?add=true')} className="card">
         <div className={'card-body  shadow rounded-3 border-0 bg-' + bg}>
-          <h4 className="text-dark">
+          <h4 className="text-light">
             <strong>{name}</strong>
           </h4>
           <h1 className="text-white">

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import InputText from '../../component/fragment/Input/InputText';
 
 export default function ModalEdit({ data, handleSubmit }) {
   const [name, setName] = useState('');

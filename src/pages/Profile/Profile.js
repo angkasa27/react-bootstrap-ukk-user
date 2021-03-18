@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import moment from 'moment';
 import { useHistory, useLocation } from 'react-router-dom';
 import queryString from 'querystring';
 import { getUserProfile, updateProfile, updatePassword } from './action';
 import Navbar from '../../component/fragment/Navbar';
 import FormProfile from './FormProfile';
+import FormPassword from './FormPassword';
 
 export default function Profile() {
   const history = useHistory();
@@ -18,10 +18,6 @@ export default function Profile() {
   useEffect(() => {
     getUserProfile(setResponse);
   }, [loading]);
-
-  const renderDate = (date) => {
-    return moment(date).locale('id').format('LL');
-  };
 
   const handleUpdate = (v) => {
     updateProfile(v, setLoading);
@@ -93,6 +89,7 @@ export default function Profile() {
           {edit && (
             <FormProfile data={response.data} handleSubmit={handleUpdate} />
           )}
+          {changePassword && <FormPassword handleSubmit={handlePassword} />}
         </div>
       </div>
     </div>
