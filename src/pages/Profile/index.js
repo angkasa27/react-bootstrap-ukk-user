@@ -1,1 +1,1 @@
-export { default } from './Pengguna';
+export { default } from './Profile';

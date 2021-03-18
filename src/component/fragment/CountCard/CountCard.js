@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function CountCard({ name, bg, value }) {
   return (
-    <div className="col-lg 4 col-md-6 col-sm-12 mt-2">
-      <div className="card">
+    <div className="col-lg 4 col-md-6 col-sm-12 mt-2 ">
+      <div className="card shadow rounded-3 border-0">
         <div className={'card-body bg-' + bg}>
           <h4 className="text-dark">
             <strong>{name}</strong>
