@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { register } from './action';
 import { useHistory } from 'react-router-dom';
 import Modal, { openModal, closeModal } from '../../component/fragment/Modal';
+import moment from 'moment';
+const date = () => {
+  return moment().format();
+};
 
 export default function Login() {
   const history = useHistory();
@@ -15,7 +19,10 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    register({ username, password, name, nik, phone }, setResponse);
+    register(
+      { username, password, name, nik, phone, createAt: date() },
+      setResponse
+    );
   };
 
   useEffect(() => {
