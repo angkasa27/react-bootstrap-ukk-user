@@ -21,7 +21,7 @@ export default function Home() {
       <div className="container mt-2">
         <h3 className="my-2">
           <strong>
-            Welcome back, {response.data ? response.data.name : ''}
+            Welcome back, {response.data ? response.data.nama : ''}
           </strong>
         </h3>
         <div className="row">
